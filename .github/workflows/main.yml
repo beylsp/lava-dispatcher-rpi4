@@ -54,6 +54,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./ubuntu-20.04.1-lava-worker-arm64+raspi.img.xz
           asset_name: ubuntu-20.04.1-lava-worker-arm64+raspi.img.xz
+          asset_content_type: application/x-xz
       - name: Publish Release
         id: publish_release
         uses: eregon/publish-release@v1
