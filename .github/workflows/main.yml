@@ -29,3 +29,8 @@ jobs:
       - name: Build ubuntu 20.04 rpi4 image with cloud-init config
         run: ./build.sh
 
+      # Generate and upload artifact
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ubuntu-20.04.1-lava-worker-arm64+raspi.img.xz
+          if-no-files-found: error
