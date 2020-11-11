@@ -19,7 +19,7 @@ run
 # upload cloud-init config
 mount /dev/sda1 /
 upload assets/user-data /user-data
-unmout /dev/sda1
+umount /dev/sda1
 
 __EOF__
 
