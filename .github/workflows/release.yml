@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Release
+        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -18,8 +19,16 @@ jobs:
           release_name: ${{ github.ref }}
         draft: false
         prerelease: false
-      
+
+      - name: Download Artifact
+        id: download_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ubuntu-20.04.1-lava-worker-arm64+raspi.img.xz
+          path: out
+
       - name: Upload Release Asset
+        id: upload_release_asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -29,6 +38,7 @@ jobs:
           asset_name: ubuntu-20.04.1-lava-worker-arm64+raspi.img.xz
 
       - name: Publish Release
+        id: publish_release
         uses: eregon/publish-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
