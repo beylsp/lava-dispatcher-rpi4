@@ -17,8 +17,8 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-        draft: false
-        prerelease: false
+          draft: false
+          prerelease: false
 
       - name: Download Artifact
         id: download_artifact
