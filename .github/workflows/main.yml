@@ -26,6 +26,6 @@ jobs:
       - name: Install libguestfs-tools
         run: sudo apt-get install libguestfs-tools
 
-      - name: Build ubuntu 20.04 rpi4 image with cloud-init
+      - name: Build ubuntu 20.04 rpi4 image with cloud-init config
         run: ./build.sh
 

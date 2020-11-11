@@ -1,17 +1,17 @@
 #!/bin/sh -xe
 
 UBUNTU=ubuntu-20.04.1-preinstalled-server-arm64+raspi
-LAVA=ubuntu-20.04.1-preinstalled-lava-dispatcher-arm64+raspi
+LAVA=ubuntu-20.04.1-lava-worker-arm64+raspi
 UBUNTU_URL=https://cdimage.ubuntu.com/releases/20.04.1/release/
 
 # download and uncompress
-wget $UBUNTU_URL/$UBUNTU.img.xz
+wget -q $UBUNTU_URL/$UBUNTU.img.xz
 unxz -v $UBUNTU.img.xz
 cp $UBUNTU.img $LAVA.img
 
 SANDBOX=$(mktemp -d -t guestfish-sandbox-XXXXXX)
 
-guestfish -a $LAVA.img --rw << __EOF__
+sudo guestfish -a $LAVA.img --rw << __EOF__
 
 # start the guestfs VM
 run
