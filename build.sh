@@ -7,11 +7,12 @@ UBUNTU_URL=https://cdimage.ubuntu.com/releases/20.04.1/release/
 # download and uncompress
 wget -q $UBUNTU_URL/$UBUNTU.img.xz
 unxz -v $UBUNTU.img.xz
-cp $UBUNTU.img $LAVA.img
+mkdir -p out
+cp $UBUNTU.img out/$LAVA.img
 
 SANDBOX=$(mktemp -d -t guestfish-sandbox-XXXXXX)
 
-sudo guestfish -a $LAVA.img --rw << __EOF__
+sudo guestfish -a out/$LAVA.img --rw << __EOF__
 
 # start the guestfs VM
 run
@@ -24,5 +25,6 @@ umount /dev/sda1
 __EOF__
 
 rm -rf $SANDBOX
+rm -rf *.img *.img.xz
 
-xz -fv $LAVA.img
+xz -fv out/$LAVA.img
