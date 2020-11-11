@@ -1,0 +1,49 @@
+#cloud-config
+
+# This is the user-data configuration file for cloud-init. By default this sets
+# up an initial user called "ubuntu" with password "ubuntu", which must be
+# changed at first login. However, many additional actions can be initiated on
+# first boot from this file. The cloud-init documentation has more details:
+#
+# https://cloudinit.readthedocs.io/
+#
+# Some additional examples are provided in comments below the default
+# configuration.
+
+# Enable password authentication with the SSH daemon
+ssh_pwauth: true
+
+# setup timezone
+timezone: Europe/Brussels
+
+# help in case of trouble
+debug:
+  verbose: true
+
+# enable ntp
+ntp:
+  enabled: true
+  ntp_client: chrony  # Uses cloud-init default chrony configuration
+
+
+# Add 'worker' as default user
+system_info:
+  default_user:
+    name: worker
+groups:
+  - worker
+users:
+  - name: worker
+    gecos: Worker
+    primary_group: worker
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    shell: /usr/bin/zsh
+    lock_passwd: false
+    plain_text_passwd: worker
+    groups: [adm, audio, cdrom, dialout, dip, floppy, lxd, netdev, plugdev, sudo, video, plugdev]
+    chpasswd: { expire: false }
+
+
+runcmd:
+  # make sure /home/worker owner is properly set
+  - chown -R worker:worker /home/worker/
