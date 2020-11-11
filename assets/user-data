@@ -43,7 +43,23 @@ users:
     groups: [adm, audio, cdrom, dialout, dip, floppy, lxd, netdev, plugdev, sudo, video, plugdev]
     chpasswd: { expire: false }
 
+# Update apt database and upgrade packages on first boot
+package_update: true
+package_upgrade: true
+
+# Install additional packages on first boot
+packages:
+  # shell & command line utilities:
+  - curl
+  # set python as default:
+  - python-is-python3
+  - python-dev-is-python3
 
 runcmd:
   # make sure /home/worker owner is properly set
   - chown -R worker:worker /home/worker/
+  # install lava-dispatcher and lava-dispatcher-host
+  - curl https://codeload.github.com/Linaro/lava/tar.gz/2020.10 --output lava-dispatcher.tar.gz
+  - tar xzf lava-dispatcher.tar.gz
+  - python3 setup.py install lava-dispatcher
+  - python3 setup.py install lava-dispatcher-host
