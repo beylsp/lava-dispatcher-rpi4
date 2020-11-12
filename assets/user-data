@@ -54,12 +54,17 @@ packages:
   # set python as default:
   - python-is-python3
   - python-dev-is-python3
+  - python3-pip
 
 runcmd:
   # make sure /home/worker owner is properly set
   - chown -R worker:worker /home/worker/
-  # install lava-dispatcher and lava-dispatcher-host
+  # install lava-common, lava-dispatcher and lava-dispatcher-host
   - curl https://codeload.github.com/Linaro/lava/tar.gz/2020.10 --output lava-dispatcher.tar.gz
   - tar xzf lava-dispatcher.tar.gz
-  - python3 setup.py install lava-dispatcher
-  - python3 setup.py install lava-dispatcher-host
+  - for package in $(.lava-2020.10/share/requires.py --package lava-common --distribution debian --suite bullseye --names); do apt install $package; done
+  - cd lava-2020.10 && python setup.py install lava-common
+  - for package in $(.lava-2020.10/share/requires.py --package lava-dispatcher --distribution debian --suite bullseye --names); do apt install $package; done
+  - cd lava-2020.10 && python setup.py install lava-dispatcher
+  - for package in $(.lava-2020.10/share/requires.py --package lava-dispatcher-host --distribution debian --suite bullseye --names); do apt install $package; done
+  - cd lava-2020.10 && python setup.py install lava-dispatcher-host
