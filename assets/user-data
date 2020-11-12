@@ -37,7 +37,7 @@ users:
     gecos: Worker
     primary_group: worker
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
-    shell: /usr/bin/zsh
+    shell: /bin/bash
     lock_passwd: false
     plain_text_passwd: worker
     groups: [adm, audio, cdrom, dialout, dip, floppy, lxd, netdev, plugdev, sudo, video, plugdev]
