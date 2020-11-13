@@ -62,9 +62,9 @@ runcmd:
   # install lava-common, lava-dispatcher and lava-dispatcher-host
   - curl https://codeload.github.com/Linaro/lava/tar.gz/2020.10 --output lava-dispatcher.tar.gz
   - tar xzf lava-dispatcher.tar.gz
-  - for package in $(.lava-2020.10/share/requires.py --package lava-common --distribution debian --suite bullseye --names); do apt install $package; done
+  - for package in $(./lava-2020.10/share/requires.py --package lava-common --distribution debian --suite bullseye --names); do apt install $package; done
   - cd lava-2020.10 && python setup.py install lava-common
-  - for package in $(.lava-2020.10/share/requires.py --package lava-dispatcher --distribution debian --suite bullseye --names); do apt install $package; done
+  - for package in $(./lava-2020.10/share/requires.py --package lava-dispatcher --distribution debian --suite bullseye --names); do apt install $package; done
   - cd lava-2020.10 && python setup.py install lava-dispatcher
-  - for package in $(.lava-2020.10/share/requires.py --package lava-dispatcher-host --distribution debian --suite bullseye --names); do apt install $package; done
+  - for package in $(./lava-2020.10/share/requires.py --package lava-dispatcher-host --distribution debian --suite bullseye --names); do apt install $package; done
   - cd lava-2020.10 && python setup.py install lava-dispatcher-host
