@@ -45,6 +45,9 @@ jobs:
           release_name: ${{ github.ref }}
           draft: false
           prerelease: false
+      - name: Get Release Version
+        id: get_release_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - name: Upload Release Asset
         id: upload_release_asset
         uses: actions/upload-release-asset@v1
@@ -53,7 +56,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./ubuntu-20.04.1-lava-worker-arm64+raspi.img.xz
-          asset_name: ubuntu-20.04.1-lava-worker-${{ github.event.release.tag_name }}-arm64+raspi.img.xz
+          asset_name: ubuntu-20.04.1-lava-worker-${{ steps.get_release_version.outputs.VERSION }}-arm64+raspi.img.xz
           asset_content_type: application/x-xz
       - name: Publish Release
         id: publish_release
