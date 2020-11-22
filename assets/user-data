@@ -59,6 +59,8 @@ packages:
   - lavacli
 
 runcmd:
+  # create lava base directory
+  - mkdir -p /opt/lava/
   # copy public key
   - mkdir -p /home/worker/.ssh
   - cp /boot/firmware/id_rsa.pub /home/worker/.ssh/authorized_keys
@@ -66,11 +68,13 @@ runcmd:
   - chown -R worker:worker /home/worker/
   - chmod 700 /home/worker/.ssh
   - chmod 600 /home/worker/.ssh/authorized_keys
+  # set hostname
+  - curl https://raw.githubusercontent.com/beylsp/lava-dispatcher-rpi4/main/assets/hostmap.json --output /opt/lava/hostmap.json
+  - python /boot/firmware/set_hostname.py /opt/lava/hostmap.json
   # install argon1.sh
   - curl https://raw.githubusercontent.com/meuter/argon-one-case-ubuntu-20.04/master/argon1.sh --output /usr/local/bin/install-argonone-case-scripts
   - chmod a+x /usr/local/bin/install-argonone-case-scripts
   # install lava-common, lava-dispatcher and lava-dispatcher-host
-  - mkdir -p /opt/lava/
   - curl https://codeload.github.com/Linaro/lava/tar.gz/2020.10 --output /opt/lava/lava-dispatcher.tar.gz
   - tar xf /opt/lava/lava-dispatcher.tar.gz -C /opt/lava
   - python /opt/lava/lava-2020.10/share/requires.py --package lava-common --distribution debian --suite buster --names > /opt/lava/lava-2020.10/deps.txt

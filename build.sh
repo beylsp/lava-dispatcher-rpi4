@@ -21,6 +21,7 @@ run
 mount /dev/sda1 /
 upload assets/user-data /user-data
 upload assets/.ssh/id_rsa.pub /id_rsa.pub
+upload assets/set_hostname.py /set_hostname.py
 umount /dev/sda1
 
 __EOF__
