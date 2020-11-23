@@ -61,9 +61,6 @@ packages:
 runcmd:
   # create lava base directory
   - mkdir -p /opt/lava/
-  # copy public key
-  - mkdir -p /home/worker/.ssh
-  - cp /boot/firmware/id_rsa.pub /home/worker/.ssh/authorized_keys
   # make sure /home/worker owner is properly set
   - chown -R worker:worker /home/worker/
   - chmod 700 /home/worker/.ssh
@@ -82,3 +79,4 @@ runcmd:
   - python /opt/lava/lava-2020.10/share/requires.py --package lava-dispatcher-host --distribution debian --suite buster --names >> /opt/lava/lava-2020.10/deps.txt
   - apt install -y $(cat /opt/lava/lava-2020.10/deps.txt)
   - cd /opt/lava/lava-2020.10 && python setup.py install lava-common && python setup.py install lava-dispatcher && python setup.py install lava-dispatcher-host
+  - reboot
