@@ -59,6 +59,7 @@ packages:
   - lavacli
   # install lxc
   - lxc
+  - lxc-templates
 
 runcmd:
   # create lava base directory
