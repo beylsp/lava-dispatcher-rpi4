@@ -57,6 +57,8 @@ packages:
   - python3-pip
   # install lava utils
   - lavacli
+  # install lxc
+  - lxc
 
 runcmd:
   # create lava base directory
@@ -79,4 +81,11 @@ runcmd:
   - /usr/bin/python3 /opt/lava/lava-2020.10/share/requires.py --package lava-dispatcher-host --distribution debian --suite buster --names >> /opt/lava/lava-2020.10/deps.txt
   - apt install -y $(cat /opt/lava/lava-2020.10/deps.txt)
   - cd /opt/lava/lava-2020.10 && /usr/bin/python3 setup.py install lava-common && /usr/bin/python3 setup.py install lava-dispatcher && /usr/bin/python3 setup.py install lava-dispatcher-host
+  # setup lxc
+  - echo worker veth lxcbr0 10 >> /etc/lxc/lxc-usernet
+  - mkdir -p /home/worker/.config/lxc
+  - cp /etc/lxc/default.conf /home/worker/.config/lxc
+  - echo lxc.idmap = u 0 100000 65536 >> /home/worker/.config/lxc/default.conf
+  - echo lxc.idmap = g 0 100000 65536 >> /home/worker/.config/lxc/default.conf
+  # restart
   - reboot
