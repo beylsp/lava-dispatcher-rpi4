@@ -21,7 +21,7 @@ run
 mount /dev/sda1 /
 upload assets/user-data /user-data
 upload assets/set_hostname.py /set_hostname.py
-upload assets/overlays /overlays
+copy-in assets/overlays /overlays
 umount /dev/sda1
 
 __EOF__
