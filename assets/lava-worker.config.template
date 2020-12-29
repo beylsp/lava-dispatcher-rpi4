@@ -1,0 +1,15 @@
+# Configuration for lava-worker daemon
+
+# worker name
+# Should be set for host that have random hostname (containers, ...)
+# The name can be any unique string.
+WORKER_NAME="--name ${worker_name}"
+
+# Logging level should be uppercase (DEBUG, INFO, WARN, ERROR)
+LOGLEVEL="INFO"
+
+# Server connection
+URL="http://lmrpi.lan/"
+# NOTE(pbe): no need to set token in case of auto-register
+#TOKEN="--token <token>"  
+WS_URL="--ws-url http://lmrpi.lan/ws/"

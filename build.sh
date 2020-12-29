@@ -22,6 +22,8 @@ mount /dev/sda1 /
 upload assets/user-data /user-data
 mkdir-p /cloud-init/lava
 upload assets/set_hostname.py /cloud-init/lava/set_hostname.py
+upload assets/lava-worker.service /cloud-init/lava/lava-worker.service
+upload assets/lava-worker.config.template /cloud-init/lava/lava-worker.config.template
 copy-in assets/overlays /cloud-init/lava
 umount /dev/sda1
 

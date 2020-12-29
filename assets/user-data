@@ -85,6 +85,9 @@ runcmd:
   - /usr/bin/python3 /opt/lava/lava-2020.10/share/requires.py --package lava-dispatcher-host --distribution debian --suite buster --names >> /opt/lava/lava-2020.10/deps.txt
   - apt install -y $(cat /opt/lava/lava-2020.10/deps.txt)
   - cd /opt/lava/lava-2020.10 && /usr/bin/python3 setup.py install lava-common && /usr/bin/python3 setup.py install lava-dispatcher && /usr/bin/python3 setup.py install lava-dispatcher-host
+  # configure lava-dispatcher
+  - cp /boot/firmware/cloud-init/lava/lava-worker.service /lib/systemd/system/lava-worker.service
+  - sed "s/\${worker_name}/$(hostname)/" /boot/firmware/cloud-init/lava/lava-worker.config.template > /etc/lava-dispatcher/lava-worker
   # setup lxc
   - echo worker veth lxcbr0 10 >> /etc/lxc/lxc-usernet
   - mkdir -p /home/worker/.config/lxc
