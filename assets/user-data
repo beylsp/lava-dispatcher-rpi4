@@ -70,7 +70,7 @@ runcmd:
   - chmod 600 /home/worker/.ssh/authorized_keys
   # set hostname
   - curl https://raw.githubusercontent.com/beylsp/lava-dispatcher-rpi4/main/assets/hostmap.json --output /opt/lava/hostmap.json
-  - /usr/bin/python3 /boot/firmware/set_hostname.py /opt/lava/hostmap.json
+  - /usr/bin/python3 /boot/firmware/cloud-init/lava/set_hostname.py /opt/lava/hostmap.json
   # install argon1.sh
   - curl https://raw.githubusercontent.com/meuter/argon-one-case-ubuntu-20.04/master/argon1.sh --output /usr/local/bin/install-argonone-case-scripts
   - chmod a+x /usr/local/bin/install-argonone-case-scripts
@@ -78,7 +78,7 @@ runcmd:
   - curl https://codeload.github.com/Linaro/lava/tar.gz/2020.10 --output /opt/lava/lava-dispatcher.tar.gz
   - tar xf /opt/lava/lava-dispatcher.tar.gz -C /opt/lava
   # apply lava-dispatcher overlays
-  - cp /boot/firmware/overlays/lava/lava-dispatcher/utils/udev.py /opt/lava/lava-2020.10/lava-dispatcher/utils/udev.py
+  - cp /boot/firmware/cloud-init/lava/overlays/lava_dispatcher/utils/udev.py /opt/lava/lava-2020.10/lava_dispatcher/utils/udev.py
   # install lava-dispatcher
   - /usr/bin/python3 /opt/lava/lava-2020.10/share/requires.py --package lava-common --distribution debian --suite buster --names > /opt/lava/lava-2020.10/deps.txt
   - /usr/bin/python3 /opt/lava/lava-2020.10/share/requires.py --package lava-dispatcher --distribution debian --suite buster --names >> /opt/lava/lava-2020.10/deps.txt

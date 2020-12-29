@@ -20,8 +20,9 @@ run
 # upload cloud-init config
 mount /dev/sda1 /
 upload assets/user-data /user-data
-upload assets/set_hostname.py /set_hostname.py
-copy-in assets/overlays /overlays
+mkdir-p /cloud-init/lava
+upload assets/set_hostname.py /cloud-init/lava/set_hostname.py
+copy-in assets/overlays /cloud-init/lava
 umount /dev/sda1
 
 __EOF__
