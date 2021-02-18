@@ -1,8 +1,9 @@
 #!/bin/sh -xe
 
-UBUNTU=ubuntu-20.04.1-preinstalled-server-arm64+raspi
-LAVA=ubuntu-20.04.1-lava-worker-arm64+raspi
-UBUNTU_URL=https://cdimage.ubuntu.com/releases/20.04.1/release/
+UBUNTU=ubuntu-20.04.2-preinstalled-server-arm64+raspi
+LAVA=ubuntu-20.04.2-lava-worker-arm64+raspi
+UBUNTU_URL=https://cdimage.ubuntu.com/releases/20.04.2/release/
+
 
 # download and uncompress
 wget -q $UBUNTU_URL/$UBUNTU.img.xz
