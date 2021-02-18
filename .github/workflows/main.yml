@@ -23,7 +23,7 @@ jobs:
         id: upload_artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ubuntu-20.04.1-lava-worker-arm64+raspi.img.xz
+          name: ubuntu-20.04.2-lava-worker-arm64+raspi.img.xz
           path: out/*.img.xz
   release:
     needs: build
@@ -34,7 +34,7 @@ jobs:
         id: download_artifact
         uses: actions/download-artifact@v2
         with:
-          name: ubuntu-20.04.1-lava-worker-arm64+raspi.img.xz
+          name: ubuntu-20.04.2-lava-worker-arm64+raspi.img.xz
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -55,8 +55,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ubuntu-20.04.1-lava-worker-arm64+raspi.img.xz
-          asset_name: ubuntu-20.04.1-lava-worker-${{ steps.get_release_version.outputs.VERSION }}-arm64+raspi.img.xz
+          asset_path: ./ubuntu-20.04.2-lava-worker-arm64+raspi.img.xz
+          asset_name: ubuntu-20.04.2-lava-worker-${{ steps.get_release_version.outputs.VERSION }}-arm64+raspi.img.xz
           asset_content_type: application/x-xz
       - name: Publish Release
         id: publish_release
