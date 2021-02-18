@@ -32,6 +32,7 @@ system_info:
     name: worker
 groups:
   - worker
+  - jenkins
 users:
   - name: worker
     gecos: Worker
@@ -40,6 +41,15 @@ users:
     shell: /bin/bash
     lock_passwd: false
     plain_text_passwd: worker
+    groups: [adm, audio, cdrom, dialout, dip, floppy, lxd, netdev, plugdev, sudo, video, plugdev]
+    chpasswd: { expire: false }
+  - name: jenkins
+    gecos: Jenkins
+    primary_group: jenkins
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    shell: /bin/bash
+    lock_passwd: false
+    plain_text_passwd: jenkins
     groups: [adm, audio, cdrom, dialout, dip, floppy, lxd, netdev, plugdev, sudo, video, plugdev]
     chpasswd: { expire: false }
 
@@ -60,6 +70,8 @@ packages:
   # install lxc
   - lxc
   - lxc-templates
+  # openjdk
+  - default-jdk
 
 runcmd:
   # create lava base directory
@@ -74,6 +86,7 @@ runcmd:
   # install argon1.sh
   - curl https://raw.githubusercontent.com/meuter/argon-one-case-ubuntu-20.04/master/argon1.sh --output /usr/local/bin/install-argonone-case-scripts
   - chmod a+x /usr/local/bin/install-argonone-case-scripts
+  - /usr/local/bin/install-argonone-case-scripts
   # install lava-common, lava-dispatcher and lava-dispatcher-host
   - curl https://codeload.github.com/Linaro/lava/tar.gz/2020.10 --output /opt/lava/lava-dispatcher.tar.gz
   - tar xf /opt/lava/lava-dispatcher.tar.gz -C /opt/lava
